@@ -1,0 +1,78 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: ${db_password}
+    username: ${db_username}
+    url: jdbc:mysql://localhost:3306/ford_mustang_app?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=Europe/Sofia
+
+
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+  web:
+    resources:
+      static-locations: classpath:/static/
+
+server:
+  port: 8080
+
+users:
+  default-user:
+    username: Stoyan
+    password: 123456
+    email: stoyan@mail.bg
+    role: ADMIN
+    confirm-password: 123456
+
+    cars:
+      - model: GT
+        year: "2024"
+        engine: "5.0"
+        imageUrl: https://s1.cdn.autoevolution.com/images/gallery/ford-mustang-gt-2023-7402_6.jpg
+        price: 52000
+
+      - model: Shelby GT500
+        year: "2019"
+        engine: "5.2"
+        imageUrl: https://s1.cdn.autoevolution.com/images/gallery/FORD-Mustang-Shelby-GT500-6483_58.jpg
+        price: 70000
+
+  second:
+    username: Nikolay
+    password: 123456
+    email: nikolay@mail.bg
+    confirm-password: 123456
+
+    cars:
+      - model: Shelby GT350R
+        year: "2015"
+        engine: "5.2"
+        imageUrl: https://s1.cdn.autoevolution.com/images/gallery/FORD-Mustang-Shelby-GT350-5339_6.jpg
+        price: 75000
+
+      - model: Dark Horse
+        year: "2024"
+        engine: "5.0"
+        imageUrl: https://s1.cdn.autoevolution.com/images/gallery/ford-mustang-dark-horse-2023-7403_10.jpg
+        price: 62000
+
+
+
+
+
+

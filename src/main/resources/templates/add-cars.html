@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <form class="welcome add-offer-form"
+          th:method="POST"
+          th:action="@{/add-cars}"
+          th:object="${carData}">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add cars</span></h1>
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="model" class="h4 mb-2">Model</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="model"
+                    name="model"
+                    th:field="*{model}"/>
+            <small th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="danger">
+                Model is required!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="year" class="h4 mb-2">Year</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="year"
+                    name="year"
+                    th:field="*{year}"/>
+            <small th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="danger">
+                Year is required!
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="engine" class="h4 mb-2">Engine</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="engine"
+                    name="engine"
+                    th:field="*{engine}"/>
+            <small th:if="${#fields.hasErrors('engine')}" th:errors="*{engine}" class="danger">
+                Engine is required!
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="imageUrl" class="h4 mb-2">Image Url</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="imageUrl"
+                    name="imageUrl"
+                    th:field="*{imageUrl}"/>
+            <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="danger">
+                Image URL is required!
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="price" class="h4 mb-2">Price</label>
+            </div>
+            <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    name="price"
+                    th:field="*{price}"/>
+            <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="danger">
+                Price is required!
+            </small>
+        </div>
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-info  mb-3">Add cars</button>
+        </div>
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

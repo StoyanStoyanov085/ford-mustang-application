@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container">
+
+        <p class="mySticky bg-gray text-dark user text-center mt-2"></p>
+
+        <div class="text-center mt-3">
+            <h2>Admin Panel</h2>
+        </div>
+
+        <div class="mt-5">
+            <h3>All Users</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.role}"></td>
+                        <td th:text="${user.isBanned() ? 'Banned' : 'Active'}"
+                            th:classappend="${user.isBanned() ? 'text-danger' : 'text-success'}">
+                        </td>
+
+
+                        <td th:if="${user.role.name() == 'USER' && !user.banned}">
+                            <form th:action="@{/admin/ban/{id}(id=${user.id})}" th:method="POST">
+                                <button type="submit" class="btn btn-warning btn-sm">Ban</button>
+                            </form>
+                        </td>
+
+
+                        <td th:if="${user.role.name() == 'USER' && user.banned}">
+                            <form th:action="@{/admin/unban/{id}(id=${user.id})}" th:method="POST">
+                                <button type="submit" class="btn btn-success btn-sm">Unban</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
+
+
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <form class="welcome add-offer-form">
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Profile View</span></h1>
+        <div class="form-group">
+            <div class="text-center mt-2">
+                <label class="h4 mb-2">Profile Picture</label>
+            </div>
+
+            <img th:src="${#strings.isEmpty(user.profilePicture) ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfj3Bm37Nn_rBQHkIzxnpmGMv3AnLWNYvA1_GwXzebfQ7rxLHl0fRsKo6mIi1SmoOiCL4&usqp=CAU' : user.profilePicture}"
+                 alt="Profile Picture" width="200" height="200" class="profile-avatar">
+
+
+        </div>
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="firstName" class="h4 mb-2">First Name</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    name="firstName"
+                    th:value="${user.firstName}"
+                    readonly/>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="lastName" class="h4 mb-2">Last Name</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    name="lastName"
+                    th:value="${user.lastName}"
+                    readonly/>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="email" class="h4 mb-2">Email</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    th:value="${user.email}"
+                    readonly/>
+        </div>
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
+
+

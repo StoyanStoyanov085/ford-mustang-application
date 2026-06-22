@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <form class="welcome add-offer-form"
+          th:method="POST"
+          th:action="@{/cars/update/{id}(id=${carData.id})}"
+          th:object="${carData}">
+
+
+        <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Edit cars</span></h1>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label>Model: <input type="text" th:field="*{model}"/></label><br/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label>Year: <input type="text" th:field="*{year}"/></label><br/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label>Engine: <input type="text" th:field="*{engine}"/></label><br/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label>Price: <input type="number" th:field="*{price}"/></label><br/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label>Image URL: <input type="text" name="imageUrl" th:field="*{imageUrl}"/></label><br/>
+            </div>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn-info btn">Save</button>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
+
+

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+
+    <form class="welcome add-offer-form"
+          th:action="@{/{id}/profile(id=${user.id})}"
+          th:object="${userEditRequest}"
+          th:method="POST">
+
+        <input type="hidden" name="_method" value="put"/>
+
+        <h1 class="text-center mt-2">
+            <span class="badge badge-pill badge-dark">Edit Profile</span>
+        </h1>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label class="h4 mb-2">Your Role</label>
+            </div>
+            <input type="text" class="form-control" readonly th:value="${user.role}"/>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="userName" class="h4 mb-2">User Name</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="userName"
+                    th:field="*{username}"/>
+
+            <small class="danger"
+                   th:if="${#fields.hasErrors('username')}"
+                   th:errors="*{username}">
+            </small>
+
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="firstName" class="h4 mb-2">First Name</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    th:field="*{firstName}"/>
+
+            <small class="danger"
+                   th:if="${#fields.hasErrors('firstName')}"
+                   th:errors="*{firstName}">
+            </small>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="lastName" class="h4 mb-2">Last Name</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    th:field="*{lastName}"/>
+
+            <small class="danger"
+                   th:if="${#fields.hasErrors('lastName')}"
+                   th:errors="*{lastName}">
+            </small>
+        </div>
+
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="email" class="h4 mb-2">Email</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    th:field="*{email}"/>
+
+            <small class="danger"
+                   th:if="${#fields.hasErrors('email')}"
+                   th:errors="*{email}">
+            </small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="profilePicture" class="h4 mb-2">Profile Picture URL</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="profilePicture"
+                    th:field="*{profilePicture}"/>
+
+            <small class="danger"
+                   th:if="${#fields.hasErrors('profilePicture')}"
+                   th:errors="*{profilePicture}">
+            </small>
+        </div>
+
+        <div class="form-group" th:if="${currentUser.role.name() == 'ADMIN'}">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="roleSelect" class="h4 mb-2">Select Role</label>
+            </div>
+            <select class="form-control" id="roleSelect" th:field="*{role}">
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-info mb-3">Save</button>
+        </div>
+
+        <div class="form-group" th:if="${user.role.name() == 'ADMIN'}">
+            <h2 class="text-center text-white mt-5">All Users</h2>
+            <table class="table table-striped text-white">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.username}"></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.role}"></td>
+                    <td>
+                        <a th:href="@{/{id}/profile(id=${u.id})}" class="btn btn-sm btn-info">Edit</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
+    <form class="mx-auto w-25 bg-blur"
+          th:action="@{/login}"
+          th:method="POST"
+          th:object="${loginRequest}">
+
+        <div th:if="${blocked}" class="alert alert-danger text-center">
+            This account is blocked!
+        </div>
+
+        <p class="succeeded-message" th:text="${successfulRegistration}"></p>
+        <p th:if="${errorMessage}"
+           class="alert alert-danger"
+           th:text="${errorMessage}">
+        </p>
+        <p class="alert-warning" th:text="${inactiveAccountMessage}"></p>
+        <p class="alert-warning" th:if="${loginAttemptMessage}" th:text="${loginAttemptMessage}"></p>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="username" class="h3 mb-2">Username</label>
+            </div>
+            <input
+                    type="text"
+                    class="form-control"
+                    th:errorclass="bg-danger"
+                    id="username"
+                    name="username"
+                    th:field="*{username}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('username')}"
+               th:errors="*{username}">Invalid username</p>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="password" class="h3 mb-2">Password</label>
+            </div>
+            <input
+                    type="password"
+                    class="form-control"
+                    th:errorclass="bg-danger"
+                    id="password"
+                    name="password"
+                    th:field="*{password}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('password')}"
+               th:errors="*{password}">Invalid password</p>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-warning  mb-3">Login</button>
+        </div>
+    </form>
+
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>

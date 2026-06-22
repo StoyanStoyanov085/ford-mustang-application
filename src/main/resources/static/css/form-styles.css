@@ -1,0 +1,61 @@
+form.welcome.add-offer-form {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    margin: 50px auto;
+    color: white;
+    box-sizing: border-box;
+}
+
+
+form.welcome.add-offer-form input,
+form.welcome.add-offer-form textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    margin: 0 auto 15px auto !important;
+    border-radius: 5px !important;
+    border: none !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+    color: #000 !important;
+}
+
+
+form.welcome.add-offer-form > div,
+form.welcome.add-offer-form > label,
+form.welcome.add-offer-form > p {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+form.welcome.add-offer-form button {
+    background-color: #f1c40f;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+form.welcome.add-offer-form button:hover {
+    background-color: #d4ac0d;
+}
+
+form.welcome.add-offer-form h1 span {
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.danger {
+    color: #ff4d4d;
+    font-size: 14px;
+}
+
+

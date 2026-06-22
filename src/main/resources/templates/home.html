@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+
+    <div class="container">
+        <p class="mySticky bg-gray text-dark user text-center mt-2">Welcome <span th:text="${user.username}"></span></p>
+        <div th:if="${user.role.name()} == 'ADMIN'">
+            <p>You are logged in as <strong>ADMIN</strong>.</p>
+
+        </div>
+        <div class="text-center mt-3">
+            <a th:if="${#strings.equals(user.role.toString(), 'ADMIN')}"
+               th:href="@{/admin/users}" class="btn btn-primary">
+                Admin Panel
+            </a>
+        </div>
+
+
+        <div th:unless="${user.role.name()} == 'ADMIN'">
+            <p>You are logged in as <strong>USER</strong>. Limited access.</p>
+        </div>
+
+
+        <div class="row mt-1 mb-2">
+            <div class="col-6 mt-1 mb-1">
+                <div>
+                    <div class="home-fields" style="height: 40vh; overflow: auto">
+                        <h3 class="my-cars">My Cars</h3>
+                        <table class="table table-dark">
+                            <tr class="my-cars">
+                                <td scope="row" style="width: 5%">Image</td>
+                                <td>Model</td>
+                                <td>Year</td>
+                                <td>Engine</td>
+                                <td>Price</td>
+                                <td>Status</td>
+                            <tr th:each="car : ${myCars}" class="my-cars">
+                                <td scope="row" style="width: 15%">
+                                    <img th:src="${car.getImageUrl()}" class="mr-2 " width="35px" height="35px">
+                                </td>
+                                <td><span th:text="${car.getModel()}"></span></td>
+                                <td><span th:text="${car.getYear()}"></span></td>
+                                <td><span th:text="${car.getEngine()}"></span></td>
+                                <td><span th:text="${car.getPrice()}"></span></td>
+                                <td>
+                                    <p th:if="${car.active}" class="status active">Active</p>
+                                    <p th:if="${!car.active}" class="status terminated">Inactive</p>
+                                </td>
+                                <td style="width: 15%">
+                                    <form th:method="POST"
+                                          th:action="@{/cars/remove/{id}(id=${car.id})}">
+                                        <button type="submit" class="btn-danger btn">Remove</button>
+                                    </form>
+                                    <form th:method="GET"
+                                          th:action="@{/cars/edits/{id}(id=${car.id})}">
+                                        <button type="submit" class="btn-info btn">Update</button>
+                                    </form>
+                                    <form th:method="PATCH"
+                                          th:action="@{'/cars/' + ${car.id} + '/status'}">
+                                        <button type="submit" class="btn-info btn">Switch</button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div>
+
+                    <div class="home-fields" style="height: 40vh; overflow: auto">
+                        <h3 class="my-cars">My Bought Cars</h3>
+                        <table class="table table-striped table-dark">
+                            <tr class="my-cars">
+                                <td scope="row" style="width: 5%">Image</td>
+                                <td>Model</td>
+                                <td>Owner</td>
+                                <td>Date of purchase</td>
+                            <tr th:each="car : ${myBoughtCars}" class="my-cars">
+                                <td scope="row" style="width: 5%">
+                                    <img class="mr-2" th:src="${car.car.getImageUrl()}" alt="" width="35px"
+                                         height="35px">
+                                </td>
+                                <td><span th:text="${car.car.model}"></span></td>
+                                <td><span th:if="${car.buyer != null}" th:text="${car.buyer.username}"></span>
+                                </td>
+                                <td>
+                                    <span th:text="${car.formattedDate}"></span>
+                                </td>
+                                <td>
+                                    <form th:action="@{'/cars/boughtCar/' + ${car.car.id}}" th:method="DELETE">
+                                        <button class="btn-danger btn">X</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 mt-1 mb-1">
+                <div class="home-fields" style="height: 40vh; overflow: auto">
+                    <h3 class="my-cars">Other Cars</h3>
+                    <table class="table table-dark">
+                        <tr class="my-cars">
+                            <td scope="row" style="width: 5%">Image</td>
+                            <td>Model</td>
+                            <td>Engine</td>
+                            <td>Price</td>
+                            <td>Added by</td>
+                        <tr th:each="car : ${otherCar}">
+                            <div class="my-cars">
+                                <td scope="row" style="width: 15%">
+                                    <img th:src="${car.getImageUrl()}" class="mr-2 " width="35px" height="35px">
+                                </td>
+                                <td><span th:text="${car.getModel()}"></span></td>
+                                <td><span th:text="${car.getEngine()}"></span></td>
+                                <td><span th:text="${car.getPrice()}"></span></td>
+                                <td><span th:text="${car.owner.username}"></span></td>
+                                <div class="buttons-info">
+                                </div>
+                            </div>
+                            <td style="width: 15%">
+                                <form th:method="POST"
+                                      th:action="@{/buy/{id}(id=${car.id})}">
+                                    <button type="submit" class="btn-info btn">Buy</button>
+                                </form>
+                                <form th:method="PUT"
+                                      th:action="@{'/cars/' + ${car.id} + '/votes'}">
+                                    <button type="submit" class="btn-info btn">Vote</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </ul>
+                    </table>
+                </div>
+                <div class="home-fields" style="height: 40vh; overflow: auto">
+                    <h3 class="my-cars">Most Rated Cars</h3>
+                    <table class="table table-dark">
+                        <tr class="my-cars">
+                            <td scope="row" style="width: 5%">Image</td>
+                            <td>Model</td>
+                            <td>Engine</td>
+                            <td>Price</td>
+                            <td>Number of votes</td>
+                        <tr th:each="car : ${mostRatedCar}">
+                            <div class="my-cars">
+                                <td scope="row" style="width: 15%">
+                                    <img th:src="${car.getImageUrl()}" class="mr-2 " width="35px" height="35px">
+                                </td>
+                                <td><span th:text="${car.getModel()}"></span></td>
+                                <td><span th:text="${car.getEngine()}"></span></td>
+                                <td><span th:text="${car.getPrice()}"></span></td>
+                                <td><span th:text="${car.vote}"></span></td>
+                            </div>
+                        </tr>
+                        </ul>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
+

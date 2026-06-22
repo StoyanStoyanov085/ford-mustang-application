@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ford Mustang App</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="/css/form-styles.css"/>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg bg-nav rounded">
+        <a class="nav-link my-text-color active h5 " th:if="${user != null}" th:href="@{/home}">Ford Mustang App</a>
+        <a class="nav-link my-text-color active h5 " th:if="${user == null}" th:href="@{/}">Ford Mustang App</a>
+        <a class="nav-link my-text-color active h5 " th:if="${user != null}" th:href="@{/add-cars}">Add Car</a>
+        <a class="nav-link my-text-color active h5 " th:if="${user != null}" th:href="@{/{id}/profile(id=${user.id})}">Edit Profile</a>
+        <a class="nav-link my-text-color active h5 " th:if="${user == null}" th:href="@{/info-application}">About</a>
+
+        <a class="nav-link my-text-color active h5"
+           th:if="${user !=null}"
+           th:href="@{/{id}/view(id=${user.id})}">
+            User Profile
+        </a>
+
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <ul class="navbar-nav row">
+
+                <li th:if="${user == null}" class="nav-item col-md-4">
+                    <a class="nav-link active h5 my-text-color" th:href="@{/login}">Login</a>
+                </li>
+                <li th:if="${user == null}" class="nav-item col-md-4">
+                    <a class="nav-link my-text-color active h5 " th:href="@{/register}">Register</a>
+                </li>
+
+                <li th:if="${user != null}" class="nav-item col-md-4">
+                    <form th:action="@{/logout}" th:method="GET">
+                        <button type="submit" class="nav-link my-text-color active h5 logout">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<footer class="footer bg-transparent  py-2">
+    <div class="container-fluid text-center">
+        <div class="footer-background h5 my-text-color fixed-bottom">
+            &copy; Ford Mustang Application 2026 &copy;
+        </div>
+    </div>
+</footer>
+</body>
+</html>
