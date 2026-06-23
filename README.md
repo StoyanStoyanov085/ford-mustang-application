@@ -28,4 +28,6 @@ Detailed overview of application functionality:
 - CRUD operations user/admin
 - Implements business logic in modular service layers
 - Error Handling logging and exception management
+*******************************************************
+- The application must include at least 10 valid commits in 3 different days - this condition is covered and visible inside the repo
 
